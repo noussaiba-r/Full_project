@@ -115,9 +115,12 @@ function Register() {
   };
 
   return (
-    <div style={themeColors.bg} className="w-[1440px] h-[1062px] flex-shrink-0">
+    <div
+      style={themeColors.bg}
+      className="min-h-screen w-full flex flex-col items-center justify-center relative overflow-hidden"
+    >
       <button
-        className={`w-[37.3333px] h-[37.3333px] mt-[45px] ml-[1150px] rounded-[12px] border-[0.6667px] p-[8.6667px] box-border focus:outline-none focus:ring-0 ${themeColors.buttonTheme} ${themeColors.cardBorder}`}
+        className={`absolute top-6 right-6 w-10 h-10 rounded-xl border flex items-center justify-center transition-all box-border focus:outline-none focus:ring-0 ${themeColors.buttonTheme} ${themeColors.cardBorder}`}
         onClick={toggleTheme}
       >
         <div>
@@ -129,24 +132,17 @@ function Register() {
         </div>
       </button>
 
-      <div className="flex flex-col items-start gap-8 w-[448px] h-[932.3334px] mt-6 ml-[496px]">
-        <div className="w-[448px] h-[221px]">
-          <div className="inline-flex flex-col justify-center items-center gap-3">
+      <div className="flex flex-col items-center gap-4 w-full max-w-[450px] max-h-full py-4">
+        <div className="w-full max-w-[448px]">
+          <div className="flex flex-col items-center text-center gap-2">
             {/* Theme toggle */}
 
-            <img
-              src={logoEsi}
-              className="w-20 h-20 rounded-full bg-lightgray bg-[url('/path-to-image')] bg-center bg-cover bg-no-repeat"
-            />
+            <img src={logoEsi} className="w-16 h-16 rounded-full object-cover shadow-sm" />
+
+            <h2 className={`text-xl font-bold ${themeColors.textMain}`}>ESI-GM</h2>
 
             <span
-              className={`text-center font-['Inter',sans-serif] text-2xl font-semibold leading-[30px] ${themeColors.textMain}`}
-            >
-              ESI-GM
-            </span>
-
-            <span
-              className={`text-center font-['Inter'] text-xs font-normal leading-[15px] ${themeColors.textSecondary}`}
+              className={`text-[10px] font-normal font-['Inter']  uppercase tracking-wider ${themeColors.textSecondary}`}
             >
               <span>École Supérieure d'Informatique Sidi Bel Abbès</span>
               <br />
@@ -154,11 +150,7 @@ function Register() {
             </span>
           </div>
 
-          <h1
-            className={`text-center font-inter text-2xl font-bold leading-[36px] ${themeColors.textMain}`}
-          >
-            Create Account
-          </h1>
+          <h1 className={`text-2xl font-black mt-2 ${themeColors.textMain}`}>Create Account</h1>
 
           <p
             className={`font-inter font-normal text-sm leading-[30px] text-center ${themeColors.textSecondary}`}
@@ -170,25 +162,17 @@ function Register() {
         <div
           className={`
 
-flex flex-col items-start self-stretch shrink-0
-
-h-[679.333px] gap-6
-
-pt-[32.667px] px-[32.667px] pb-[0.667px]
-
-rounded-[16px]
-
-
-
+flex flex-col items-start w-full p-6 rounded-2xl shadow-2xl
+max-w-[450px]
 shadow-[0_20px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)] 
 
 ${themeColors.cardBg} border ${themeColors.cardBorder}`}
         >
-          <form onSubmit={handleSubmit} className="flex flex-col items-start self-stretch gap-6">
+          <form onSubmit={handleSubmit} className="flex flex-col items-start self-stretch gap-4">
             {/* Full Name */}
 
-            <div className="flex flex-col gap-2 w-full">
-              <label className="flex pr-[316.667px] items-center self-stretch">
+            <div className="flex flex-col gap-1 w-full">
+              <label className="flex text-sm items-center self-stretch">
                 <p
                   className={`font-inter text-[14px] font-medium leading-[20px] ${themeColors.textMain}`}
                 >
@@ -197,12 +181,12 @@ ${themeColors.cardBg} border ${themeColors.cardBorder}`}
               </label>
 
               <div
-                className={`flex items-center w-full h-12 px-4  border  rounded-xl ${themeColors.inputBg} ${themeColors.inputBorder}`}
+                className={`flex items-center w-full h-11 px-4  border  rounded-xl ${themeColors.inputBg} ${themeColors.inputBorder}`}
               >
                 <User className="text-gray-400" size={20} />
 
                 <input
-                  className={`flex-1 tranparent ml-2 outline-none border-none ${themeColors.inputBg}`}
+                  className={`flex-1 tranparent ml-2 outline-none border-none text-sm ${themeColors.inputBg}`}
                   type="text"
                   name="full_name"
                   placeholder="John Doe"
@@ -216,9 +200,9 @@ ${themeColors.cardBg} border ${themeColors.cardBorder}`}
 
             {/* Email */}
 
-            <div className="flex flex-col gap-2 w-full">
+            <div className="flex flex-col gap-1 w-full">
               {' '}
-              <label className="flex items-center self-stretch pr-[287.667px]">
+              <label className="flex items-center self-stretch text-sm">
                 {' '}
                 <p className={`font-inter text-sm font-medium leading-5 ${themeColors.textMain}`}>
                   {' '}
@@ -226,13 +210,13 @@ ${themeColors.cardBg} border ${themeColors.cardBorder}`}
                 </p>{' '}
               </label>{' '}
               <div
-                className={`flex items-center w-full h-12 px-4  border  rounded-xl ${themeColors.inputBg} ${themeColors.inputBorder}`}
+                className={`flex items-center w-full h-11 px-4  border  rounded-xl ${themeColors.inputBg} ${themeColors.inputBorder}`}
               >
                 {' '}
                 <Mail className="text-gray-400" size={20} />{' '}
                 <input
                   autoComplete="off"
-                  className={`flex-1 ml-2 bg-transparent outline-none border-none ${themeColors.inputBg}`}
+                  className={`flex-1 ml-2 bg-transparent text-sm outline-none border-none ${themeColors.inputBg}`}
                   type="email"
                   name="email"
                   placeholder="a.student@esi-sba.dz"
@@ -249,20 +233,20 @@ ${themeColors.cardBg} border ${themeColors.cardBorder}`}
 
             {/* Password */}
 
-            <div className="flex flex-col gap-2 w-full">
-              <label className="flex items-center self-stretch pr-[316.667px]">
+            <div className="flex flex-col gap-1 w-full">
+              <label className="flex items-center self-stretch text-sm">
                 <p className={` font-inter text-sm font-medium leading-5 ${themeColors.textMain}`}>
                   Password
                 </p>
               </label>
 
               <div
-                className={`flex items-center w-full h-12 px-4  border rounded-xl ${themeColors.inputBg} ${themeColors.inputBorder}`}
+                className={`flex items-center w-full h-11 px-4 text-sm border rounded-xl ${themeColors.inputBg} ${themeColors.inputBorder}`}
               >
                 <Lock className="text-gray-400" size={20} />
 
                 <input
-                  className={`flex-1 ml-2 bg-transparent outline-none border-none ${themeColors.inputBg}`}
+                  className={`flex-1 ml-2 bg-transparent outline-none text-sm border-none ${themeColors.inputBg}`}
                   type="password"
                   name="password"
                   placeholder="Create a password"
@@ -276,8 +260,8 @@ ${themeColors.cardBg} border ${themeColors.cardBorder}`}
 
             {/* Account Type */}
 
-            <div className="flex flex-col gap-2 w-full">
-              <label className="flex items-center self-stretch pr-[289.667px]">
+            <div className="flex flex-col gap-1 w-full">
+              <label className="flex items-center self-stretch text-sm">
                 <p
                   className={`text-[#0F172A] font-inter text-sm font-medium leading-5 ${themeColors.textMain}`}
                 >
@@ -286,12 +270,12 @@ ${themeColors.cardBg} border ${themeColors.cardBorder}`}
               </label>
 
               <div
-                className={`flex items-center w-full h-12 px-4  border rounded-xl ${themeColors.inputBg} ${themeColors.inputBorder}`}
+                className={`flex items-center w-full h-11 px-4 text-sm  border rounded-xl ${themeColors.inputBg} ${themeColors.inputBorder}`}
               >
                 <UserCircle className="text-gray-400" size={20} />
 
                 <select
-                  className={`flex-1 ml-2 bg-transparent outline-none border-none ${themeColors.inputBg}`}
+                  className={`flex-1 ml-2 bg-transparent outline-none text-sm border-none ${themeColors.inputBg}`}
                   name="account_type"
                   value={formData.account_type}
                   onChange={handleChange}
@@ -314,7 +298,7 @@ ${themeColors.cardBg} border ${themeColors.cardBorder}`}
             <button
               type="submit"
               disabled={loading}
-              className="flex justify-center items-center self-stretch px-[130.854px] py-[10.333px] rounded-[12px] bg-[#2B4C9F]"
+              className="flex justify-center items-center w-full py-[10px] rounded-xl bg-[#2B4C9F]"
             >
               <span
                 className={`text-white text-center font-inter text-base font-medium leading-6 ${themeColors.textMain}`}
@@ -324,19 +308,19 @@ ${themeColors.cardBg} border ${themeColors.cardBorder}`}
             </button>
           </form>
 
-          <div className="flex justify-center items-center self-stretch px-[82.583px] pr-[81.083px] py-0">
+          <div className="flex justify-center items-center self-stretch mt-4">
             <p className="text-[#64748B] text-center font-inter text-sm font-normal leading-5">
               Already have an account?{' '}
             </p>
 
             <span className="text-[#2B4C9F] font-inter text-sm font-normal leading-5">
               {' '}
-              Sing in
+              Sign in
             </span>
           </div>
 
           <div
-            className={`flex flex-col items-start h-[44.667px] pt-[24.667px] flex-shrink-0 self-stretch border-t-[0.667px] ${themeColors.borderTop}`}
+            className={`flex flex-col items-start pt-6 mt-4 self-stretch border-t ${themeColors.borderTop}`}
           >
             <a className="flex justify-center items-center self-stretch">
               {' '}
