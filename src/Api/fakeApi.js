@@ -18,10 +18,8 @@ let requests = [
   },
 ];
 
-// Fetch all requests (simulates API call)
 export const fetchRequestsFake = () => requests;
 
-// Add new request (simulates API call)
 export const createRequestFake = (newRequest) => {
   const id = requests.length + 1;
   const requestWithId = {

@@ -8,14 +8,12 @@ export function RequestProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   const fetchRequests = async () => {
+    setLoading(true);
     try {
-      setLoading(true);
-
-      const res = await getRequests();
-
-      setRequests(res.data);
+      const data = await getRequests();
+      setRequests(data);
     } catch (error) {
-      console.error(error);
+      console.error('Failed to fetch requests', error);
     } finally {
       setLoading(false);
     }
@@ -26,7 +24,7 @@ export function RequestProvider({ children }) {
   }, []);
 
   return (
-    <RequestContext.Provider value={{ requests, loading, fetchRequests }}>
+    <RequestContext.Provider value={{ requests, loading, fetchRequests, setRequests }}>
       {children}
     </RequestContext.Provider>
   );

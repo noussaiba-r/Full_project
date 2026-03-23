@@ -1,8 +1,6 @@
-// src/Hooks/useRequests.js
 import { useContext } from 'react';
-import { RequestContext } from '../Context/RequestContext';
+import { RequestContext } from '../context/RequestContext';
 
 export default function useRequests() {
-  // هاد hook كيرجع context ديال requests + fetchRequests
   return useContext(RequestContext);
 }
