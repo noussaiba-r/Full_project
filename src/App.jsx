@@ -12,6 +12,7 @@ import SuperAdminDashboard from './Pages/SuperAdminDashboard';
 import LaboratoryInventory from './Pages/LaboratoryInventory';
 
 import './App.css';
+import RequestWorkflow from './Pages/RequestWorkflow';
 
 function App() {
   const [dark, setDark] = useState(false);
@@ -29,7 +30,8 @@ function App() {
                 element={<MyRequestsPage toggleTheme={toggleTheme} dark={dark} />}
               />
               <Route path="/SuperAdminDashboard" element={<SuperAdminDashboard />} />
-              <Route path="/" element={<LaboratoryInventory />} />
+              <Route path="/Laboratory" element={<LaboratoryInventory />} />
+              <Route path="/" element={<RequestWorkflow />} />
             </Routes>
           </div>
         </RequestProvider>
