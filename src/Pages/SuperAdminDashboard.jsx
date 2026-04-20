@@ -139,6 +139,11 @@ const SuperAdminDashboard = () => {
 
           <div className="flex justify-between items-center px-2">
             <button
+              onClick={() => {
+                localStorage.removeItem('token'); // إذا كان عندك token
+                localStorage.removeItem('user'); // مسح بيانات المستخدم
+                navigate('/login'); // يروح لصفحة login
+              }}
               className={`flex items-center bg-transparent gap-2 ${dark ? 'text-[#E8EAF0]' : 'text-[#0F172A]'} hover:text-red-500 transition-colors`}
             >
               <LogOut size={18} />
@@ -148,6 +153,7 @@ const SuperAdminDashboard = () => {
         </div>
 
         <div
+          onClick={() => navigate('/dashboard/superadmin')}
           className={`p-4 border-t flex justify-center items-center ${dark ? 'border-[#2B4C9F]' : 'border-[#E2E8F0]'}`}
         >
           <X size={20} className={`${dark ? 'text-[#94A3B8]' : 'text-gray-400'} cursor-pointer`} />
@@ -282,14 +288,17 @@ const SuperAdminDashboard = () => {
               </div>
             ))}
           </div>
-          <button className="text-sm bg-transparent text-[#6366F1] font-medium w-full flex pl-1 items-start group pt-4">
+          <button
+            onClick={() => navigate('/admin/laboratories')}
+            className="text-sm bg-transparent text-[#6366F1] font-medium w-full flex pl-1 items-start group pt-4"
+          >
             Manage All Laboratories →
           </button>
         </section>
 
         {/* 4. The Two Management Buttons */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 bg-transparent">
-          <div onClick={() => navigate('/users')} className="cursor-pointer">
+          <div onClick={() => navigate('/admin/users')} className="cursor-pointer">
             <ManagementBtn
               icon={Users}
               label="User Management"
@@ -299,7 +308,7 @@ const SuperAdminDashboard = () => {
               className="bg-[rgba(43,127,255,0.05)]"
             />
           </div>
-          <div onClick={() => navigate('/labs')} className="cursor-pointer">
+          <div onClick={() => navigate('/admin/laboratories')} className="cursor-pointer">
             <ManagementBtn
               icon={Beaker}
               label="Laboratory Management"

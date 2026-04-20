@@ -1,18 +1,27 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import ThemeToggle from "../components/ThemeToggle";
-import { Mail, Lock, ArrowLeft } from "lucide-react";
-import logo from "../assets/img.png";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import ThemeToggle from '../components/ThemeToggle';
+import { Mail, Lock, ArrowLeft } from 'lucide-react';
+import logo from '../assets/img.png';
+import '../hook/Login.css';
 
 export default function Login() {
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/dashboard");
+    if (email === 'super@esi.com') {
+      navigate('/dashboard/superadmin');
+    } else if (email === 'admin@esi.com') {
+      navigate('/dashboard/admin');
+    } else if (email === 'store@esi.com') {
+      navigate('/dashboard/storekeeper');
+    } else {
+      navigate('/dashboard/student');
+    }
   };
 
   return (
@@ -25,9 +34,7 @@ export default function Login() {
         <div className="login-brand">
           <img src={logo} alt="ESI-GM" className="login-brand-logo" />
           <h2 className="login-brand-name">ESI-GM</h2>
-          <p className="login-brand-school">
-            École Supérieure d'Informatique Sidi Bel Abbès
-          </p>
+          <p className="login-brand-school">École Supérieure d'Informatique Sidi Bel Abbès</p>
           <p className="login-brand-date">8 Mai 1945</p>
 
           <h1 className="login-title">Welcome Back</h1>
@@ -78,17 +85,15 @@ export default function Login() {
           </form>
 
           <div className="login-footer-v3">
-            <p>
-              Don&apos;t have an account? <a href="/">Register here</a>
-            </p>
+            <div>
+              <p onClick={() => navigate('/register')}>
+                Don&apos;t have an account? <a href="">Register here</a>
+              </p>
+            </div>
 
             <div className="login-divider-v3" />
 
-            <button
-              type="button"
-              className="login-back-v3"
-              onClick={() => navigate("/")}
-            >
+            <button type="button" className="login-back-v3" onClick={() => navigate('/')}>
               <ArrowLeft size={14} />
               <span>Back to Home</span>
             </button>

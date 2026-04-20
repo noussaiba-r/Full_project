@@ -107,29 +107,35 @@ ${dark ? 'bg-[#020817] border-r border-[#2B4C9F]' : 'bg-[#FFF] border-r border-[
         </div>
 
         <nav className="flex flex-col p-4 gap-2 flex-1">
-          <div onClick={() => navigate('/SuperAdminDashboard')}>
+          <div onClick={() => navigate('/dashboard/student')}>
             <NavItem
               className={`${dark ? 'text-[#E8EAF0]' : 'text-[#0F172A]'}`}
               icon={<LayoutDashboard size={20} />}
               label="Dashboard"
             />
           </div>
-          <NavItem
-            icon={<FolderKanban size={20} />}
-            label="My Projects"
-            className={`${dark ? 'text-[#E8EAF0]' : 'text-[#0F172A]'}`}
-          />
-          <NavItem
-            className="bg-[#2B4C9F] text-[#FFF]"
-            icon={<ClipboardList size={20} />}
-            label="My Requests"
-            active
-          />
-          <NavItem
-            className={`${dark ? 'text-[#E8EAF0]' : 'text-[#0F172A]'}`}
-            icon={<Package size={20} />}
-            label="Browse Materials"
-          />
+          <div onClick={() => navigate('/projects')}>
+            <NavItem
+              icon={<FolderKanban size={20} />}
+              label="My Projects"
+              className={`${dark ? 'text-[#E8EAF0]' : 'text-[#0F172A]'}`}
+            />
+          </div>
+          <div onClick={() => navigate('/my-requests')}>
+            <NavItem
+              className="bg-[#2B4C9F] text-[#FFF]"
+              icon={<ClipboardList size={20} />}
+              label="My Requests"
+              active
+            />
+          </div>
+          <div onClick={() => navigate('/materials/browse')}>
+            <NavItem
+              className={`${dark ? 'text-[#E8EAF0]' : 'text-[#0F172A]'}`}
+              icon={<Package size={20} />}
+              label="Browse Materials"
+            />
+          </div>
         </nav>
 
         <div
@@ -153,6 +159,11 @@ ${dark ? 'bg-[#020817] border-r border-[#2B4C9F]' : 'bg-[#FFF] border-r border-[
               )}
             </button>
             <button
+              onClick={() => {
+                localStorage.removeItem('token'); // إذا كان عندك token
+                localStorage.removeItem('user'); // مسح بيانات المستخدم
+                navigate('/login'); // يروح لصفحة login
+              }}
               className={`flex items-center bg-transparent gap-2 ${dark ? 'text-[#E8EAF0]' : 'text-[#0F172A]'} hover:text-red-600 transition-colors py-2`}
             >
               <LogOut className="w-[20px] h-[20px] flex-shrink-0" />
@@ -161,6 +172,7 @@ ${dark ? 'bg-[#020817] border-r border-[#2B4C9F]' : 'bg-[#FFF] border-r border-[
           </div>
         </div>
         <button
+          onClick={() => navigate('/dashboard/student')}
           className={`flex flex-col items-start w-full sm:w-[255px] h-auto sm:h-[52px] pt-[16.667px] px-4 sm:px-[117.667px] ${dark ? 'border-t border-[#2B4C9F]' : 'border-t border-[#E2E8F0]'} bg-transparent rounded-none`}
         >
           <X className="w-[20px] h-[20px] flex-shrink-0" />

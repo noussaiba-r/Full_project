@@ -1,7 +1,7 @@
-import React, { useRef, useState } from "react";
-import SlideBare from "../Components/SlideBare";
-import ThemeToggle from "../Components/ThemeToggle";
-import { Html5Qrcode } from "html5-qrcode";
+import React, { useRef, useState } from 'react';
+import SlideBare from '../Components/SlideBare.jsx';
+import ThemeToggle from '../Components/ThemeToggle.jsx';
+import { Html5Qrcode } from 'html5-qrcode';
 import {
   Camera,
   QrCode,
@@ -10,17 +10,17 @@ import {
   ArrowUpFromLine,
   History,
   X,
-} from "lucide-react";
+} from 'lucide-react';
 
 export default function QRStockScanner() {
   const scannerRef = useRef(null);
-  const scannerRegionId = "qr-reader-region";
+  const scannerRegionId = 'qr-reader-region';
 
-  const [transactionType, setTransactionType] = useState("input");
+  const [transactionType, setTransactionType] = useState('input');
   const [isScanning, setIsScanning] = useState(false);
-  const [scanMessage, setScanMessage] = useState("Ready to scan");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [lastScannedCode, setLastScannedCode] = useState("");
+  const [scanMessage, setScanMessage] = useState('Ready to scan');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [lastScannedCode, setLastScannedCode] = useState('');
   const [recentTransactions, setRecentTransactions] = useState([]);
 
   const stopScanner = async () => {
@@ -39,15 +39,15 @@ export default function QRStockScanner() {
 
   const handleScanSuccess = async (decodedText) => {
     setLastScannedCode(decodedText);
-    setScanMessage("QR code scanned successfully");
-    setErrorMessage("");
+    setScanMessage('QR code scanned successfully');
+    setErrorMessage('');
 
     const newTransaction = {
       id: Date.now(),
       code: decodedText,
       type: transactionType,
       date: new Date().toLocaleString(),
-      status: "Success",
+      status: 'Success',
     };
 
     setRecentTransactions((prev) => [newTransaction, ...prev].slice(0, 6));
@@ -55,8 +55,8 @@ export default function QRStockScanner() {
   };
 
   const startScanner = async () => {
-    setErrorMessage("");
-    setScanMessage("Initializing camera...");
+    setErrorMessage('');
+    setScanMessage('Initializing camera...');
 
     try {
       if (scannerRef.current) {
@@ -66,8 +66,8 @@ export default function QRStockScanner() {
       const devices = await Html5Qrcode.getCameras();
 
       if (!devices || devices.length === 0) {
-        setErrorMessage("No camera found");
-        setScanMessage("Unable to start scanner");
+        setErrorMessage('No camera found');
+        setScanMessage('Unable to start scanner');
         return;
       }
 
@@ -83,15 +83,15 @@ export default function QRStockScanner() {
           aspectRatio: 1.777,
         },
         handleScanSuccess,
-        () => {}
+        () => {},
       );
 
       setIsScanning(true);
-      setScanMessage("Scanner is active");
+      setScanMessage('Scanner is active');
     } catch (error) {
       console.error(error);
-      setErrorMessage("Unable to start camera scanner. Check camera permission.");
-      setScanMessage("Ready to scan");
+      setErrorMessage('Unable to start camera scanner. Check camera permission.');
+      setScanMessage('Ready to scan');
       setIsScanning(false);
 
       if (scannerRef.current) {
@@ -107,8 +107,8 @@ export default function QRStockScanner() {
 
   const handleStop = async () => {
     await stopScanner();
-    setScanMessage("Scanner stopped");
-    setErrorMessage("");
+    setScanMessage('Scanner stopped');
+    setErrorMessage('');
   };
 
   return (
@@ -120,9 +120,7 @@ export default function QRStockScanner() {
           <div className="page-topbar">
             <div>
               <h1 className="page-title">QR Stock Scanner</h1>
-              <p className="page-subtitle">
-                Scan QR codes to manage inventory input and output
-              </p>
+              <p className="page-subtitle">Scan QR codes to manage inventory input and output</p>
             </div>
             <ThemeToggle />
           </div>
@@ -133,10 +131,8 @@ export default function QRStockScanner() {
             <div className="scanner-type-grid">
               <button
                 type="button"
-                className={`scanner-type-card ${
-                  transactionType === "input" ? "active input" : ""
-                }`}
-                onClick={() => setTransactionType("input")}
+                className={`scanner-type-card ${transactionType === 'input' ? 'active input' : ''}`}
+                onClick={() => setTransactionType('input')}
               >
                 <ArrowDownToLine size={20} />
                 <div>
@@ -148,9 +144,9 @@ export default function QRStockScanner() {
               <button
                 type="button"
                 className={`scanner-type-card ${
-                  transactionType === "output" ? "active output" : ""
+                  transactionType === 'output' ? 'active output' : ''
                 }`}
-                onClick={() => setTransactionType("output")}
+                onClick={() => setTransactionType('output')}
               >
                 <ArrowUpFromLine size={20} />
                 <div>
@@ -178,9 +174,7 @@ export default function QRStockScanner() {
                     <span>Start Scanning</span>
                   </button>
 
-                  {errorMessage && (
-                    <div className="scanner-error-badge">{errorMessage}</div>
-                  )}
+                  {errorMessage && <div className="scanner-error-badge">{errorMessage}</div>}
 
                   {lastScannedCode && (
                     <div className="scanner-last-result">
@@ -193,7 +187,7 @@ export default function QRStockScanner() {
 
               <div
                 id={scannerRegionId}
-                className={`scanner-reader ${isScanning ? "active" : ""}`}
+                className={`scanner-reader ${isScanning ? 'active' : ''}`}
               />
 
               {isScanning && (
@@ -225,7 +219,7 @@ export default function QRStockScanner() {
                       <strong>{item.code}</strong>
                       <span
                         className={`scanner-history-type ${
-                          item.type === "input" ? "input" : "output"
+                          item.type === 'input' ? 'input' : 'output'
                         }`}
                       >
                         {item.type.toUpperCase()}

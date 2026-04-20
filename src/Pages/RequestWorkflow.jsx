@@ -86,21 +86,19 @@ export default function MaterialRequests() {
           </div>
           <nav className="space-y-2 text-gray-600 dark:text-gray-300">
             {[
-              { name: 'Dashboard', icon: LayoutDashboard },
-              { name: 'Inventory', icon: Boxes },
-              { name: 'QR Scanner', icon: ScanLine },
-              { name: 'Users', icon: Users },
-              { name: 'Requests', icon: ClipboardList },
-              { name: 'Material Outputs', icon: Package },
-              { name: 'Maintenance', icon: Wrench },
-              { name: 'Settings', icon: Settings },
+              { name: 'Dashboard', icon: LayoutDashboard, path: '/dashboard/admin' },
+              { name: 'Inventory', icon: Boxes, path: '/inventory' },
+              { name: 'QR Scanner', icon: ScanLine, path: '/qr-scanner' },
+              { name: 'Users', icon: Users, path: '/users' },
+              { name: 'Requests', icon: ClipboardList, path: '/requests' },
+              { name: 'Material Outputs', icon: Package, path: '/material-outputs' },
+              { name: 'Maintenance', icon: Wrench, path: '/maintenance' },
+              { name: 'Settings', icon: Settings, path: '/settings' },
             ].map((item) => {
               const Icon = item.icon;
               return (
                 <div
-                  onClick={() => {
-                    if (item.name === 'Dashboard') navigate('/SuperAdminDashboard');
-                  }}
+                  onClick={() => navigate(item.path)}
                   key={item.name}
                   className={`p-2 rounded-lg cursor-pointer flex items-center gap-2 ${
                     item.name === 'Requests'
@@ -121,7 +119,14 @@ export default function MaterialRequests() {
               <p className="text-sm text-slate-400 font-medium">Admin</p>
             </div>
 
-            <button className="w-full flex text-base bg-transparent items-center gap-3 px-2 py-3 text-slate-900 dark:text-gray-300 hover:text-red-600 transition-colors font-medium group">
+            <button
+              onClick={() => {
+                localStorage.removeItem('token'); // إذا كان عندك token
+                localStorage.removeItem('user'); // مسح بيانات المستخدم
+                navigate('/login'); // يروح لصفحة login
+              }}
+              className="w-full flex text-base bg-transparent items-center gap-3 px-2 py-3 text-slate-900 dark:text-gray-300 hover:text-red-600 transition-colors font-medium group"
+            >
               <div className="rotate-180 group-hover:translate-x-1 transition-transform">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
@@ -136,7 +141,10 @@ export default function MaterialRequests() {
             </button>
 
             <div className="mt-6 pt-6 border-t border-slate-100 dark:border-gray-700 flex justify-center">
-              <button className="text-slate-900 bg-transparent dark:text-gray-400 hover:rotate-90 transition-transform">
+              <button
+                onClick={() => navigate(-1)}
+                className="text-slate-900 bg-transparent dark:text-gray-400 hover:rotate-90 transition-transform"
+              >
                 <X size={24} />
               </button>
             </div>
@@ -223,7 +231,7 @@ export default function MaterialRequests() {
             </div>
             <div>
               <button
-                onClick={() => navigate('/RequestButtonsGuide ')}
+                onClick={() => navigate('/RequestButtonsGuide')}
                 className="bg-[#6366F1] hover:bg-indigo-700 text-white px-6 py-3 rounded-2xl text-sm font-bold transition-all shadow-lg flex items-center gap-3"
               >
                 <BookOpen size={20} /> View Complete Button Guide
@@ -301,6 +309,21 @@ export default function MaterialRequests() {
                       <div className="flex flex-wrap gap-3">
                         {req.actions.map((action, idx) => (
                           <button
+                            onClick={() => {
+                              if (action === 'Mark Ready') {
+                                // فتح Modal لتجهيز المواد
+                                console.log('Mark Ready:', req.id);
+                              } else if (action === 'Confirm Pickup') {
+                                // فتح Modal لتأكيد الاستلام
+                                console.log('Confirm Pickup:', req.id);
+                              } else if (action === 'Confirm Return') {
+                                // فتح Modal لتأكيد الإرجاع
+                                console.log('Confirm Return:', req.id);
+                              } else if (action === 'View QR Code') {
+                                // فتح Modal لعرض QR Code
+                                navigate(`/validation/${req.id}`);
+                              }
+                            }}
                             key={idx}
                             className={`px-5 py-2.5 border rounded-xl text-xs font-bold flex items-center gap-2 shadow-sm transition-all ${
                               action === 'Confirm Return'

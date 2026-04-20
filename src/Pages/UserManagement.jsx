@@ -139,7 +139,7 @@ const UserManagement = () => {
 
           <nav className="flex-1 px-4 space-y-1 mt-4">
             <button
-              onClick={() => navigate('/SuperAdminDashboard')}
+              onClick={() => navigate('/dashboard/superadmin')}
               className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-500 dark:text-slate-400 bg-transparent transition-all"
             >
               <LayoutDashboard size={18} />
@@ -150,11 +150,21 @@ const UserManagement = () => {
           <div className="p-6 border-t dark:border-[#2B4C9F] border-[#E2E8F0]">
             <p className="text-xs font-bold dark:text-white">Robotics Lab Admin</p>
             <p className="text-[10px] dark:text-[#94A3B8] text-[#64748B]">Admin</p>
-            <button className="flex items-center bg-transparent gap-2 mt-4 hover:text-red-500 transition-colors dark:text-white text-slate-800">
+            <button
+              onClick={() => {
+                localStorage.removeItem('token'); // إذا كان عندك token
+                localStorage.removeItem('user'); // مسح بيانات المستخدم
+                navigate('/login'); // يروح لصفحة login
+              }}
+              className="flex items-center bg-transparent gap-2 mt-4 hover:text-red-500 transition-colors dark:text-white text-slate-800"
+            >
               <LogOut size={18} /> <span className="text-sm font-medium">Logout</span>
             </button>
           </div>
-          <button className="flex flex-col items-start w-full sm:w-[255px] h-auto sm:h-[52px] pt-[16.667px] px-4 sm:px-[117.667px] border-t dark:border-[#2B4C9F] border-t border-[#E2E8F0] bg-transparent rounded-none dark:text-white">
+          <button
+            onClick={() => navigate('/dashboard/superadmin')}
+            className="flex flex-col items-start w-full sm:w-[255px] h-auto sm:h-[52px] pt-[16.667px] px-4 sm:px-[117.667px] border-t dark:border-[#2B4C9F] border-t border-[#E2E8F0] bg-transparent rounded-none dark:text-white"
+          >
             <X className="w-[20px] h-[20px] flex-shrink-0" />
           </button>
         </aside>
@@ -326,7 +336,12 @@ const UserManagement = () => {
                             <td className="px-8 py-5 text-right">
                               {user.role !== 'Super Admin' ? (
                                 <div className="flex justify-end gap-2">
-                                  <button className="p-2 text-slate-400 hover:text-indigo-600 transition-colors bg-slate-50 dark:bg-slate-800 rounded-lg">
+                                  <button
+                                    onClick={() => {
+                                      console.log('Edit user:', user.id);
+                                    }}
+                                    className="p-2 text-slate-400 hover:text-indigo-600 transition-colors bg-slate-50 dark:bg-slate-800 rounded-lg"
+                                  >
                                     <SquarePen size={16} />
                                   </button>
                                   <button

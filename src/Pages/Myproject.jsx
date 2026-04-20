@@ -1,32 +1,33 @@
-import { useState } from "react";
-import { Icon } from '../components/Icon'; 
+import { useState } from 'react';
+import { Icon } from '../components/Icon';
 import ThemeToggel from '../components/ThemToggel';
 import Sidebare from '../components/Sidebare';
 import CreateProjectModal from './CreateProjectModal';
+import { useNavigate } from 'react-router-dom';
 
 const INIT_PROJECTS = [
   {
     id: 1,
-    title: "IoT Weather Station",
-    desc: "Building an IoT-based weather monitoring system",
+    title: 'IoT Weather Station',
+    desc: 'Building an IoT-based weather monitoring system',
     createdAt: new Date().toLocaleDateString('fr-FR'),
     members: 2,
   },
   {
     id: 2,
-    title: "Robotics Arm Control",
-    desc: "Design and control of a 6-DOF robotic arm",
+    title: 'Robotics Arm Control',
+    desc: 'Design and control of a 6-DOF robotic arm',
     createdAt: new Date().toLocaleDateString('fr-FR'),
     members: 3,
   },
 ];
 
-const ProjectCard = ({ project }) => (
+const ProjectCard = ({ project, navigate }) => (
   <div className="flex flex-col gap-2 transition-all hover:scale-[1.01] bg-[var(--card)] border-1 border-[var(--card-border)] p-6 rounded-xl w-full">
     <div className="flex items-start justify-between">
       <div
         className="w-8 h-8 rounded-xl flex items-center justify-center bg-[var(--icon-bg)]"
-        style={{ color: "#51A2FF", transform: "scale(1.4)", transformOrigin: "left center" }}
+        style={{ color: '#51A2FF', transform: 'scale(1.4)', transformOrigin: 'left center' }}
       >
         {Icon.projects}
       </div>
@@ -48,7 +49,10 @@ const ProjectCard = ({ project }) => (
         <span className="w-4 h-4 mt-[-3px]">{Icon.users}</span>
         <span>{project.members} members</span>
       </div>
-      <button className="text-sm hover:opacity-80 transition-all text-[#2B4C9F]">
+      <button
+        onClick={() => navigate(`/project/${project.id}`)}
+        className="text-sm hover:opacity-80 transition-all text-[#2B4C9F]"
+      >
         View Details
       </button>
     </div>
@@ -56,6 +60,7 @@ const ProjectCard = ({ project }) => (
 );
 
 export default function MyProject() {
+  const navigate = useNavigate();
   const [projects, setProjects] = useState(INIT_PROJECTS);
   const [showModal, setShowModal] = useState(false);
 
@@ -66,20 +71,17 @@ export default function MyProject() {
   return (
     <div
       className="flex h-screen overflow-hidden"
-      style={{ background: "var(--background)", fontFamily: "Inter" }}
+      style={{ background: 'var(--background)', fontFamily: 'Inter' }}
     >
       {/* Sidebar */}
       <Sidebare activeLabel="My Projects" />
 
       {/* Main content */}
       <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
-
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-title-custom">
-              My Projects
-            </h1>
+            <h1 className="text-2xl sm:text-3xl font-bold text-title-custom">My Projects</h1>
             <p className="text-small-custom text-sm mt-1">
               Manage your laboratory projects and teams
             </p>
@@ -96,18 +98,14 @@ export default function MyProject() {
         {/* Project Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
           {projects.map((p) => (
-            <ProjectCard key={p.id} project={p} />
+            <ProjectCard key={p.id} project={p} navigate={navigate} />
           ))}
         </div>
-
       </main>
 
       {/* Modal */}
       {showModal && (
-        <CreateProjectModal
-          onClose={() => setShowModal(false)}
-          onCreate={handleCreate}
-        />
+        <CreateProjectModal onClose={() => setShowModal(false)} onCreate={handleCreate} />
       )}
     </div>
   );

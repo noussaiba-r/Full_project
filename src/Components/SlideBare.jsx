@@ -1,71 +1,70 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { Icon } from "./Icon";
-import logo from "../assets/img.png";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import {
+  LayoutDashboard,
+  Package,
+  QrCode,
+  Users,
+  ClipboardList,
+  Settings,
+  LogOut,
+  Wrench,
+  ArrowRightLeft,
+} from 'lucide-react';
 
-const navItems = [
-  { label: "Dashboard", icon: Icon.dashboard, path: "/" },
-  { label: "Inventory", icon: Icon.inventory, path: "/inventory" },
-  { label: "QR Scanner", icon: Icon.scanner, path: "/scanner" },
-  { label: "Users", icon: Icon.users, path: "/users" },
-  { label: "Requests", icon: Icon.requests, path: "/requests" },
-  { label: "Material Guide", icon: Icon.requests, path: "/request-buttons-guide" },
-  { label: "Material Outputs", icon: Icon.output, path: "/outputs" },
-  { label: "Maintenance", icon: Icon.maintenance, path: "/maintenance" },
-  { label: "Settings", icon: Icon.settings, path: "/settings" },
-];
-
-export default function SlideBare({ activeLabel = "Dashboard" }) {
+export default function SlideBare({ activeLabel = 'Dashboard' }) {
   const navigate = useNavigate();
 
+  const navItems = [
+    { label: 'Dashboard', icon: LayoutDashboard, path: '/dashboard/admin' },
+    { label: 'Inventory', icon: Package, path: '/inventory' },
+    { label: 'QR Scanner', icon: QrCode, path: '/qr-scanner' },
+    { label: 'Users', icon: Users, path: '/users' },
+    { label: 'Requests', icon: ClipboardList, path: '/requests' },
+    { label: 'Transfers', icon: ArrowRightLeft, path: '/transfers' },
+    { label: 'Material Outputs', icon: Package, path: '/material-outputs' },
+    { label: 'Maintenance', icon: Wrench, path: '/maintenance' },
+    { label: 'Settings', icon: Settings, path: '/settings' },
+  ];
+
   return (
-    <aside className="sb-sidebar">
-      <div className="sb-top">
-        <div className="sb-brand">
-          <div className="sb-logo-wrap">
-            <img src={logo} alt="ESI-GM" className="sb-logo" />
-          </div>
-
-          <div className="sb-brand-text">
-            <h3>ESI-GM</h3>
-            <p>Lab Equipment</p>
-          </div>
-        </div>
-
-        <nav className="sb-nav">
-          {navItems.map((item) => {
-            const ItemIcon = item.icon;
-            const isActive = activeLabel === item.label;
-
-            return (
-              <button
-                key={item.label}
-                type="button"
-                className={`sb-nav-btn ${isActive ? "active" : ""}`}
-                onClick={() => navigate(item.path)}
-              >
-                <span className="sb-nav-icon">
-                  <ItemIcon size={18} />
-                </span>
-                <span>{item.label}</span>
-              </button>
-            );
-          })}
-        </nav>
+    <aside className="w-64 bg-white dark:bg-slate-900 border-r h-screen p-4 flex flex-col">
+      <div className="mb-8">
+        <h1 className="text-xl font-bold">ESI-GM</h1>
+        <p className="text-xs text-gray-500">Lab Equipment</p>
       </div>
 
-      <div className="sb-bottom">
-        <div className="sb-user">
-          <p>Robotics Lab Admin</p>
-          <span>Admin</span>
-        </div>
+      <nav className="flex-1 space-y-2">
+        {navItems.map((item) => {
+          const Icon = item.icon;
+          return (
+            <button
+              key={item.label}
+              onClick={() => navigate(item.path)}
+              className={`w-full flex items-center gap-3 px-4 py-2 rounded-lg transition-all ${
+                activeLabel === item.label
+                  ? 'bg-indigo-600 text-white'
+                  : 'hover:bg-gray-100 dark:hover:bg-slate-800'
+              }`}
+            >
+              <Icon size={18} />
+              <span>{item.label}</span>
+            </button>
+          );
+        })}
+      </nav>
 
-        <button type="button" className="sb-logout-btn">
-          <Icon.output size={16} />
+      <div className="pt-4 border-t">
+        <button
+          onClick={() => {
+            localStorage.clear();
+            navigate('/login');
+          }}
+          className="w-full flex items-center gap-3 px-4 py-2 rounded-lg text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20"
+        >
+          <LogOut size={18} />
           <span>Logout</span>
         </button>
-
-        <div className="sb-close">×</div>
       </div>
     </aside>
   );

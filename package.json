@@ -11,10 +11,14 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
+    "axios": "^1.7.0",
+    "html5-qrcode": "^2.3.8",
+    "lucide-react": "^0.460.0",
     "qrcode.react": "^4.2.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.4",
-    "react-qr-code": "^2.0.18"
+    "react-qr-code": "^2.0.18",
+    "react-router-dom": "^6.26.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

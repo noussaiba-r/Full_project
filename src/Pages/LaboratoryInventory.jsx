@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import logo from './logo.jpg';
 import { getItems } from '../Api/inventory.api.js';
+import { useNavigate } from 'react-router-dom';
 
 const mockApi = {
   categories: [
@@ -96,6 +97,7 @@ const mockApi = {
 };
 
 const LaboratoryInventory = () => {
+  const navigate = useNavigate();
   const [dark, setDark] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('All Categories');
@@ -175,25 +177,69 @@ const LaboratoryInventory = () => {
         </div>
 
         <nav className="p-4 flex-1 space-y-2">
-          <NavItem icon={LayoutDashboard} label="Dashboard" dark={dark} />
-          <NavItem icon={Box} label="Inventory" active dark={dark} />
-          <NavItem icon={QrCode} label="QR Scanner" dark={dark} />
-          <NavItem icon={Users} label="Users" dark={dark} />
-          <NavItem icon={ClipboardList} label="Requests" dark={dark} />
-          <NavItem icon={ArrowUpRight} label="Material Outputs" dark={dark} />
-          <NavItem icon={Settings} label="Maintenance" dark={dark} />
-          <NavItem icon={Settings} label="Settings" dark={dark} />
+          <NavItem
+            icon={LayoutDashboard}
+            label="Dashboard"
+            dark={dark}
+            onClick={() => navigate('/dashboard/admin')}
+          />
+          <NavItem
+            icon={Box}
+            label="Inventory"
+            active
+            dark={dark}
+            onClick={() => navigate('/inventory')}
+          />
+          <NavItem
+            icon={QrCode}
+            label="QR Scanner"
+            dark={dark}
+            onClick={() => navigate('/qr-scanner')}
+          />
+          <NavItem icon={Users} label="Users" dark={dark} onClick={() => navigate('/users')} />
+          <NavItem
+            icon={ClipboardList}
+            label="Requests"
+            dark={dark}
+            onClick={() => navigate('/requests')}
+          />
+          <NavItem
+            icon={ArrowUpRight}
+            label="Material Outputs"
+            dark={dark}
+            onClick={() => navigate('/material-outputs')}
+          />
+          <NavItem
+            icon={Settings}
+            label="Maintenance"
+            dark={dark}
+            onClick={() => navigate('/maintenance')}
+          />
+          <NavItem
+            icon={Settings}
+            label="Settings"
+            dark={dark}
+            onClick={() => navigate('/settings')}
+          />
         </nav>
 
         <div className={`p-6 border-t ${dark ? 'border-[#2B4C9F]' : 'border-[#E2E8F0]'}`}>
           <p className="text-xs font-bold">Robotics Lab Admin</p>
           <p className={`text-[10px] ${dark ? 'text-[#94A3B8]' : 'text-[#64748B]'}`}>Admin</p>
-          <button className="flex items-center bg-transparent gap-2 mt-4 hover:text-red-500 transition-colors">
+          <button
+            onClick={() => {
+              localStorage.removeItem('token');
+              localStorage.removeItem('user');
+              navigate('/login');
+            }}
+            className="flex items-center bg-transparent gap-2 mt-4 hover:text-red-500 transition-colors"
+          >
             <LogOut size={18} /> <span className="text-sm font-medium">Logout</span>
           </button>
         </div>
 
         <button
+          onClick={() => navigate('/dashboard/admin')}
           className={`flex flex-col items-start w-full sm:w-[255px] h-auto sm:h-[52px] pt-[16.667px] px-4 sm:px-[117.667px] ${
             dark ? 'border-t border-[#2B4C9F]' : 'border-t border-[#E2E8F0]'
           } bg-transparent rounded-none`}
@@ -210,6 +256,7 @@ const LaboratoryInventory = () => {
               Browse and search all available materials
             </p>
           </div>
+
           <button
             onClick={toggleTheme}
             className={`p-2 rounded-xl border ${
@@ -387,8 +434,9 @@ const LaboratoryInventory = () => {
   );
 };
 
-const NavItem = ({ icon: Icon, label, active, dark }) => (
+const NavItem = ({ icon: Icon, label, active, dark, onClick }) => (
   <div
+    onClick={onClick}
     className={`flex items-center gap-3 px-4 py-2.5 rounded-xl cursor-pointer transition-all ${
       active
         ? 'bg-[#2B4C9F] text-white shadow-md'

@@ -122,7 +122,7 @@ const LaboratoryManagementPage = () => {
 
           <nav className="px-4 py-4 flex-1">
             <button
-              onClick={() => navigate('/SuperAdminDashboard')}
+              onClick={() => navigate('/dashboard/superadmin')}
               className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:bg-slate-50 bg-transparent transition"
             >
               <LayoutDashboard size={18} />
@@ -135,11 +135,21 @@ const LaboratoryManagementPage = () => {
               <p className="text-sm font-bold text-slate-800 dark:text-white">Super Admin</p>
               <p className="text-[11px] text-slate-400">superadmin</p>
             </div>
-            <button className="mt-5 w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-slate-50 bg-transparent transition">
+            <button
+              onClick={() => {
+                localStorage.removeItem('token'); // إذا كان عندك token
+                localStorage.removeItem('user'); // مسح بيانات المستخدم
+                navigate('/login'); // يروح لصفحة login
+              }}
+              className="mt-5 w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-slate-50 bg-transparent transition"
+            >
               <LogOut size={18} />
               <span className="text-sm font-semibold">Logout</span>
             </button>
-            <div className="mt-8 flex justify-center text-slate-300 dark:text-slate-700">
+            <div
+              onClick={() => navigate('/dashboard/superadmin')}
+              className="mt-8 flex justify-center text-slate-300 dark:text-slate-700"
+            >
               <X size={18} />
             </div>
           </div>

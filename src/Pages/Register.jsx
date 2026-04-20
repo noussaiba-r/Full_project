@@ -2,6 +2,8 @@ import { useState } from 'react';
 import axios from 'axios';
 import { Sun, Moon, User, Mail, Lock, UserCircle, ChevronDown } from 'lucide-react';
 import logoEsi from './logo.jpg';
+import { useNavigate } from 'react-router-dom';
+
 function Register() {
   const [formData, setFormData] = useState({
     full_name: '',
@@ -16,6 +18,7 @@ function Register() {
     password: '',
     account_type: '',
   });
+  const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState('');
@@ -74,6 +77,7 @@ function Register() {
       const response = await axios.post('http://localhost:8000/api/register/', formData);
       console.log(response.data);
       setSuccess('Account created successfully');
+      navigate('/login');
       setFormData({ full_name: '', email: '', password: '', account_type: '' });
       setErrors({});
     } catch (err) {
@@ -341,10 +345,13 @@ ${themeColors.cardBg} border ${themeColors.cardBorder}`}
               Already have an account?{' '}
             </p>
 
-            <span className="text-[#2B4C9F] font-inter text-sm font-normal leading-5">
+            <button
+              onClick={() => navigate('/login')}
+              className="text-[#2B4C9F] font-inter text-sm font-normal leading-5 cursor-pointer bg-transparent"
+            >
               {' '}
               Sign in
-            </span>
+            </button>
           </div>
 
           <div
@@ -352,9 +359,12 @@ ${themeColors.cardBg} border ${themeColors.cardBorder}`}
           >
             <a className="flex justify-center items-center self-stretch">
               {' '}
-              <p className="text-[#64748B] text-center font-inter text-sm font-normal leading-5">
+              <button
+                className="text-[#64748B] text-center font-inter bg-transparent text-sm font-normal leading-5"
+                onClick={() => navigate('/')}
+              >
                 ← Back to Home
-              </p>
+              </button>
             </a>
           </div>
 

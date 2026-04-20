@@ -1,20 +1,18 @@
-import React from "react";
-import SlideBare from "../Components/SlideBare";
-import ThemeToggle from "../Components/ThemeToggle";
-import { Icon } from "../Components/Icon";
+import React from 'react';
+import SlideBare from '../Components/SlideBare.jsx';
+import ThemeToggle from '../Components/ThemeToggle.jsx';
+import { AlertCircle, Calendar, Wrench } from 'lucide-react';
 
 function SummaryCard({ icon, title, value, subtitle, variant }) {
   return (
     <div className={`mm-summary-card ${variant}`}>
       <div className="mm-summary-top">
         <div className={`mm-summary-icon ${variant}`}>{icon}</div>
-
         <div>
           <p className="mm-summary-title">{title}</p>
           <h3 className="mm-summary-value">{value}</h3>
         </div>
       </div>
-
       <p className="mm-summary-subtitle">{subtitle}</p>
     </div>
   );
@@ -31,21 +29,19 @@ export default function MaintenanceManagement() {
             <h1>Maintenance Management</h1>
             <p>Monitor equipment condition and track maintenance schedules</p>
           </div>
-
           <ThemeToggle />
         </div>
 
         <section className="mm-alert-grid">
           <SummaryCard
-            icon={<Icon.alert />}
+            icon={<AlertCircle size={24} />}
             title="Needs Attention"
             value="0"
             subtitle="Materials currently under maintenance or damaged"
             variant="danger"
           />
-
           <SummaryCard
-            icon={<Icon.calendar />}
+            icon={<Calendar size={24} />}
             title="Upcoming (30 days)"
             value="0"
             subtitle="Scheduled maintenance in the next 30 days"
@@ -55,10 +51,9 @@ export default function MaintenanceManagement() {
 
         <section className="mm-history-card">
           <div className="mm-card-header">
-            <Icon.wrenchSmall />
+            <Wrench size={20} />
             <h3>Maintenance History</h3>
           </div>
-
           <div className="mm-table-wrapper">
             <table className="mm-table">
               <thead>
